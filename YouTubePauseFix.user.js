@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         YouTube Pause Fix
-// @version      0.3
+// @version      0.4
 // @description  Fix youtube pause on SpaceBar after alt-tab
 // @author       http://github.com/Wolf49406
-// @match        *://www.youtube.com/watch*
+// @match        *://www.youtube.com/watch?v=*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @homepageURL  https://github.com/Wolf49406/YouTubePauseFix
 // @updateURL    https://github.com/Wolf49406/YouTubePauseFix/raw/main/YouTubePauseFix.user.js
