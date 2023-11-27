@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name         YouTube Pause Fix
-// @version      0.5
+// @version      0.6
 // @description  Fix youtube pause on SpaceBar after alt-tab
 // @author       http://github.com/Wolf49406
-// @match        *://www.youtube.com/watch?v=*
-// @match        *://www.youtube.com/watch?v=*&t=*
+// @match        http*://www.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @homepageURL  https://github.com/Wolf49406/YouTubePauseFix
 // @updateURL    https://github.com/Wolf49406/YouTubePauseFix/raw/main/YouTubePauseFix.user.js
@@ -31,6 +30,9 @@
             return;
         }
 
+        // Alternatively you can use
+        // video.paused ? video.play() : video.pause();
+        // If you don't like play/pause animation
         video.click();
     }
 
@@ -52,8 +54,21 @@
         return false;
     }
 
+    function IsValidURL() {
+        let loc = location.search;
+        if (loc == undefined || !loc.includes("?v=")) {
+            return false;
+        }
+
+        return true;
+    }
+
     function onKeydown(key) {
         if (key.code != "Space") {
+            return;
+        }
+
+        if (!IsValidURL()) {
             return;
         }
 
