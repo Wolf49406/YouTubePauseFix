@@ -5,6 +5,7 @@
 // @author       http://github.com/Wolf49406
 // @match        *://www.youtube.com/watch*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @homepageURL  https://github.com/Wolf49406/YouTubePauseFix
 // @grant        none
 // ==/UserScript==
 
