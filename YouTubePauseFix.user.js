@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         YouTube Pause Fix
-// @version      0.6
+// @version      0.7
 // @description  Fix youtube pause on SpaceBar after alt-tab
-// @author       http://github.com/Wolf49406
+// @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @homepageURL  https://github.com/Wolf49406/YouTubePauseFix
@@ -21,12 +21,12 @@
             return;
         }
 
-        const class_name = movie_player.className;
-        if (class_name == undefined) {
+        const movie_player_class_name = movie_player.className;
+        if (movie_player_class_name == undefined) {
             return;
         }
 
-        if (!class_name.includes("ytp-probably-keyboard-focus")) {
+        if (!movie_player_class_name.includes("ytp-probably-keyboard-focus")) { // No focus after Alt-Tab. So youtube DO know about this bug, huh?
             return;
         }
 
@@ -36,18 +36,18 @@
         video.click();
     }
 
-    function IsCommentBlockFocused() {
+    function IsCommentBlockFocused() { // We don't want to pause when we write comments, right?
         const input_container = document.getElementById("labelAndInputContainer");
         if (input_container == undefined) {
             return false;
         }
 
-        const class_name = input_container.className;
-        if (class_name == undefined) {
+        const input_container_class_name = input_container.className;
+        if (input_container_class_name == undefined) {
             return false;
         }
 
-        if (class_name.includes("focused")) {
+        if (input_container_class_name.includes("focused")) { // Pretty much self-described
             return true;
         }
 
@@ -55,8 +55,8 @@
     }
 
     function IsValidURL() {
-        let loc = location.search;
-        if (loc == undefined || !loc.includes("?v=")) {
+        const loc = location.search;
+        if (loc == undefined || !loc.includes("?v=")) { // URL handling (@match) in modern Tampermonkey is such a headache :<
             return false;
         }
 
@@ -79,5 +79,11 @@
         PlayPause();
     }
 
+    // Fullscreen on/off will broke Keydown Event Listener (focus loss?). Trying to play around.
+    // function OnFullscreenChange() {
+    //     console.log("fullscreen: ", document.fullscreenElement);
+    // }
+
     document.addEventListener('keydown', onKeydown, true);
+    //document.addEventListener('fullscreenchange', OnFullscreenChange, true);
 })();
