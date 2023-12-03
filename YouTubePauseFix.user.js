@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Pause Fix
-// @version      0.7
+// @version      0.8-RC
 // @description  Fix youtube pause on SpaceBar after alt-tab
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
@@ -56,7 +56,7 @@
 
     function IsValidURL() {
         const loc = location.search;
-        if (loc == undefined || !loc.includes("?v=")) { // URL handling (@match) in modern Tampermonkey is such a headache :<
+        if (loc == undefined || !loc.includes("?v=")) { // URL handling
             return false;
         }
 
@@ -79,11 +79,5 @@
         PlayPause();
     }
 
-    // Fullscreen on/off will broke Keydown Event Listener (focus loss?). Trying to play around.
-    // function OnFullscreenChange() {
-    //     console.log("fullscreen: ", document.fullscreenElement);
-    // }
-
     document.addEventListener('keydown', onKeydown, true);
-    //document.addEventListener('fullscreenchange', OnFullscreenChange, true);
 })();
