@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Pause Fix
-// @version      0.8-RC
+// @version      0.9-RC
 // @description  Fix youtube pause on SpaceBar after alt-tab
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
@@ -54,6 +54,24 @@
         return false;
     }
 
+    function IsSearhContainerFocused() { // Same for search box
+        const search_container = document.getElementById("search-container");
+        if (search_container == undefined) {
+            return false;
+        }
+
+        const search_container_class_name = search_container.className;
+        if (search_container_class_name == undefined) {
+            return false;
+        }
+
+        if (search_container_class_name.includes("sbfcn")) { // Fosused
+            return true;
+        }
+
+        return false;
+    }
+
     function IsValidURL() {
         const loc = location.search;
         if (loc == undefined || !loc.includes("?v=")) { // URL handling
@@ -73,6 +91,10 @@
         }
 
         if (IsCommentBlockFocused()) {
+            return;
+        }
+
+        if (IsSearhContainerFocused()) {
             return;
         }
 
