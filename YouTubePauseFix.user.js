@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Pause Fix
-// @version      1.0
+// @version      1.1
 // @description  Fix youtube pause on SpaceBar after alt-tab
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
@@ -17,12 +17,12 @@
     function PlayPause() {
         const video = document.getElementsByClassName("html5-main-video")[0];
         const movie_player = document.getElementById("movie_player");
-        if (video == undefined || movie_player == undefined) {
+        if (!video || !movie_player) {
             return;
         }
 
         const movie_player_class_name = movie_player.className;
-        if (movie_player_class_name == undefined) {
+        if (!movie_player_class_name) {
             return;
         }
 
@@ -38,12 +38,12 @@
 
     function IsCommentBlockFocused() { // We don't want to pause when we write comments, right?
         const input_container = document.getElementById("labelAndInputContainer");
-        if (input_container == undefined) {
+        if (!input_container) {
             return false;
         }
 
         const input_container_class_name = input_container.className;
-        if (input_container_class_name == undefined) {
+        if (!input_container_class_name) {
             return false;
         }
 
@@ -56,12 +56,12 @@
 
     function IsSearhContainerFocused() { // Same for search box
         const search_container = document.getElementById("search-container");
-        if (search_container == undefined) {
+        if (!search_container) {
             return false;
         }
 
         const search_container_class_name = search_container.className;
-        if (search_container_class_name == undefined) {
+        if (!search_container_class_name) {
             return false;
         }
 
@@ -74,7 +74,7 @@
 
     function IsValidURL() { // Tampermonkey's @match is such a headache
         const loc = location.search;
-        if (loc == undefined || !loc.includes("?v=")) { // https://www.youtube.com/watch?v=XXXX
+        if (!loc || !loc.includes("?v=")) { // https://www.youtube.com/watch?v=XXXX
             return false;
         }
 
